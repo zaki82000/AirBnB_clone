@@ -10,11 +10,21 @@ class BaseModel:
     """
     class BaseModel that defines all common attributes/methods for other clases
     """
-    def __init__(self):
-            self.updated_at = datetime.now()
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            
+    def __init__(self, *args, **kwargs):
+            if kwargs:
+                for key, value in kwargs.items():
+                    if key == '__class__':
+                        continue
+                    elif key in ('created_at', 'updated_at'):
+                        # Convert string to datetime object
+                        setattr(self, key, datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
+                    else:
+                        setattr(self, key, value)
+            else:
+                self.id = str(uuid.uuid4())
+                self.created_at = datetime.now()
+                self.updated_at = datetime.now()
+                    
             """
             Private instance attribute: height and width
             """
@@ -26,9 +36,11 @@ class BaseModel:
         self.updated_at = datetime.now()
 
     def to_dict(self):
-        obj = self.__dict__.copy()
-        obj['__class__'] = self.__class__.__name__
-        obj['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
-        obj['id'] = self.id
-        obj['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
-        return obj
+        dict_repr = self.__dict__.copy()
+        dict_repr['__class__'] = self.__class__.__name__
+
+        # Convert datetime objects to string in ISO format
+        dict_repr['created_at'] = self.created_at.isoformat()
+        dict_repr['updated_at'] = self.updated_at.isoformat()
+
+        return dict_repr
