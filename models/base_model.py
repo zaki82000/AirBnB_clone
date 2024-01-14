@@ -11,11 +11,16 @@ class BaseModel:
     class BaseModel that defines all common attributes/methods for other clases
     """
     def __init__(self, *args, **kwargs):
-        self.id = str(uuid.uuid4())
-        self.updated_at = self.created_at = datetime.now()
-        """
-        Private instance attribute: height and width
-        """
+        if kwargs:  # Check if kwargs is not empty
+            for key, value in kwargs.items():
+                if key != '__class__':
+                    setattr(self, key, value) 
+        else:
+            self.id = str(uuid.uuid4())
+            self.updated_at = self.created_at = datetime.now()
+            """
+            Private instance attribute: height and width
+            """
 
     def __str__(self):
         return (f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}")
