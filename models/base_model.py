@@ -1,17 +1,22 @@
 #!/usr/bin/python3
-""" import module"""
+"""
+import module
+"""
 import uuid
 from datetime import datetime
 
 
 class BaseModel:
-    """class BaseModel that defines
-    all common attributes/methods for other classes"""
+    """
+    class BaseModel that defines all common attributes/methods for other clases
+    """
     def __init__(self, *args, **kwargs):
         self.id = uuid.uuid4()
         self.created_at = datetime.now()
         self.updated_at = self.created_at
-        """Private instance attribute: height and width """
+        """
+        Private instance attribute: height and width
+        """
 
     @property
     def uuid(self):
