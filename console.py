@@ -8,14 +8,14 @@ import cmd
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
 
-    def do_quit(self, arg):
-        quit()
+    def emptyline(self):
+        pass
 
     def do_EOF(self, line):
-        quit()
+        return True
 
-    def emptyline(self):
-        return cmd.Cmd.emptyline(self)
+    def do_quit(self, arg):
+        return True
 
 
 if __name__ == '__main__':
