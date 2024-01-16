@@ -41,11 +41,10 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        dict_repr = self.__dict__.copy()
-        dict_repr['__class__'] = self.__class__.__name__
-
-        # Convert datetime objects to string in ISO format
-        dict_repr['created_at'] = self.created_at.isoformat()
-        dict_repr['updated_at'] = self.updated_at.isoformat()
-
-        return dict_repr
+        my_dict = {'__class__': self.__class__.__name__}
+        for key, value in self.__dict__.items():
+            if isinstance(value, datetime):
+                my_dict[key] = value.isoformat()
+            else:
+                my_dict[key] = value
+        return my_dict

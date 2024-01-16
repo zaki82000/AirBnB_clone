@@ -27,6 +27,5 @@ class FileStorage:
                     key: eval(f"{value['__class__']}(**{value})")
                     for key, value in json.load(f).items()
                 }
-
         except FileNotFoundError:
             pass
