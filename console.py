@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Contains the definition of 'HBNBCommand' class.
+"""
 import cmd
 
 
