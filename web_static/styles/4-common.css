@@ -1,0 +1,13 @@
+body {
+    color: #484848;
+    font-size: 14px;
+    font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    .logo {
+        background-image: url("../images/logo.png");
+        width: 142px;
+        height: 60px;
+        margin-left: 20px;
+    }
+
+}
